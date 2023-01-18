@@ -159,3 +159,83 @@ UPDATE Reservation SET roomNumber = 1001; # 조건을 걸어주지 않으면 모
 # DELETE FROM 테이블명 [WHERE 칼럼 = 값] // 해당 테이블에서 삭제해라 / 그 테이블에서 어디를? 아이디가 7인 애를
 
 DELETE FROM Reservation WHERE id = 7; # 실행해보면 7번이 없어진거를 확인할 수 있음
+
+# 데이터를 넣는 코드 아이디는 오토인크리먼트되어있기 때문에 아이디는 빼고 적어주면 됨 
+# insert는 레코드값 삽입 구문이라고 생각해도 됨 
+INSERT INTO Reservation(name, reservationDate, roomNumber) VALUES('고수', '2023-03-02', 904);
+INSERT INTO Reservation(name, reservationDate) Values('한효주', '2023-06-27');
+
+# 전부다 쓸 때는 아무것도 안쓰고 바로 VALUES간다고 함
+INSERT INTO Reservation VALUES(20, '고길동', '2023-03-02', 3414);
+
+# 데이터검색
+# - SELECT
+# 지정한 테이블에서 선택한 컬럼을 검색할 때 사용함
+# 문법 : SELECT 칼럼명1 FROM 테이블명 [WHERE 조건]; // 대괄호 안에 where 조건은 써도 되고 안 써도 된다는 표현임 // 필요하면 써야함
+# 여러 개 할 때는 : SELECT 칼럼명1, 칼럼명2, .... FROM 테이블명 [WHERE 조건];
+
+# 이름만 검색하는 sql문
+SELECT name FROM Reservation;
+
+# 이름과 룸넘버를 검색하는 sql문
+SELECT name, roomNumber From Reservation;
+
+# 이름과 룸넘버를 검색해달라(칼럼이 name이고 roomNumber를 보여달라 / 그 날짜로 예약한 사람의 이름과 방번호를 알려달라/ 선택해서 보여달라 어디서? 예약날짜가 2023-03-02인 애를 찾아서) / 뭐를 찾아서? 예약날짜가 2023-03-02인 사람을 찾아서
+SELECT name, roomNumber From Reservation WHERE reservationDate = '2023-03-02'; 
+
+# SELECT * 으로 모든 컬럼을 선택할 수 있음
+SELECT * FROM Reservation;
+SELECT * FROM Reservation WHERE name = '홍길동';
+
+# Java에서는 =이 대입연산자였고 비교연산자 중 같다 의미를 가진 연산자는 == 이거나 아니면 .equals() 메서드인데 
+
+
+# WHERE문 뒤 비교연산자 및 논리연산자로 조건을 추가하여 검색할 수 있음
+# Java에서는 비교연산을 추가할 때 비교연산자들을 적어야했지만 SQL에서는 그냥 영어 그대로 적으면 된다고 함(AND, OR 등) 
+SELECT * FROM Reservation WHERE name = '홍길동' AND reservationDate < '2023-04-01'; # 이렇게 하면 이름이 홍길동인 애만 뽑음 // 왜냐면 아직은 동명이인이 없기 때문임
+SELECT * FROM Reservation WHERE name = '홍길동' OR reservationDate < '2023-04-01'; # 이러면 둘 중 하나라도 성립하면 그에 성립하는 애들은 다 나옴(일단 아이디가 홍길동인애랑 예약날짜가 똑같은 애들은 무조건 나오고 나머지는 날짜를 비교연산해서 그 날짜 이하인 애들은 다 나옴)
+																					# DB 안에서는 날짜를 String 타입으로 입력받아 비교연산 할 때는 DB는 Java와 다르게 날짜를 진짜 날짜로 변환해서 비교연산해주는 기능이 있어서 그 날짜가 비교날짜보다 큰지 작은지 비교 가능하다고 함
+SELECT * FROM Reservation WHERE roomNumber IS NOT NULL; # NULL인 애만 제외하고 보여달라
+SELECT * FROM Reservation WHERE roomNumber is NUll; # NULL인 애만 보여달라
+
+# 이름에 길동이라는 말이 포함된 애를 뽑고 싶다면
+SELECT * FROM Reservation WHERE name LIKE '%길동'; # 패턴을 입력하는 구문인데 여기서 패턴이란 '%길동'에서 %를 말함 (그리고 정확히 해석하면 뒤에 이름이 길동인애를 보여달라는 말임)
+													# LIKE : 문자열 타입인 칼럼에만 쓸 수 있음
+                                                    # LIKE를 쓸 적에 길동% 이라고 적으면 앞에서부터 길동이라고 시작하는 애를 말하는거고, %길동 하면 뒤에서부터 길동인 애를 찾아라는 말임                                
+SELECT * FROM Reservation WHERE name LIKE '%길동' AND roomNumber IS NOT NULL;
+
+# DISTINCT : 특정 칼럼의 중복제거 
+SELECT DISTINCT name, roomNumber FROM Reservation; # SELECT DISTINCT가 하나의 구문이고 이 검색결과에서 중복을 제거한다는 뜻임 그래서 만약에 한효주에 방번호가 없는 데이터가 2개 있다면 중복데이터를 지우고 하나만 남겨둠
+
+
+# ORDER BY : 뒤어 어떤 칼럼을 기준으로 정렬을 할 것이냐는 의미임
+# ORDER BY 컬럼명 [정렬방법] 
+# ASC : 오름차순
+# DESC : 내림차순 
+# ORDER BY 자체는 기본값이 오름차순이기 때문에 굳이 ASC를 안 붙여도 오름차순이 됨
+
+# 특정 컬럼을 기준으로 정렬 : ORDER BY 
+SELECT * FROM Reservation ORDER BY reservationDate; # 날짜가 오름차순으로 정렬되어서 나옴
+SELECT * FROM Reservation ORDER BY reservationDate DESC; # 이렇게 하면 날짜가 내림차순으로 정렬되어서 나옴
+
+# 여러 컬럼을 기준으로 정렬을 하겠다하면 아래처럼 하면 됨 
+SELECT * FROM Reservation ORDER BY reservationDate DESC, roomNumber DESC; # 이렇게 하면 예약날짜와 방번호가 내림차순된 데이터로 출력됨
+SELECT * FROM Reservation ORDER BY roomNumber DESC, reservationDate DESC; # 이 코드는 위 코드와 정렬 순서가 다름  
+																			# ORDERBY 뒤에 첫번째로 오는 컬럼이 우선순위가 됨
+																			# 그러니까 roomNumber를 먼저 정렬을 하고 그 정렬된 roomNumber기준으로 reservationDate가 정렬된 순서임	
+                                                                            
+# AS : 별칭 사용
+SELECT name AS eman, roomNumber FROM Reservation; # 결과의 필드명을 잘보면 name이 eman으로 바껴서 나옴 이렇게 AS를 써서 칼럼명을 바꿔줄 수 있음
+												  # 나중에 테이블들을 Join했을 때 쓰는데, A라는 테이블과 B라는 테이블이 있을 때 B테이블의 주키가 A라는 테이블에 똑같은 값으로 있는 필드(A의 주키)와 연결되어서 나중에 출력하려고 할 때 두 클래스 중 하나의 값만 가져와서 출력하는데 		
+SELECT name, roomNumber FROM Reservation AS R;     # 이렇게 테이블이름도 바꿔줄수있는데 테이블이름 바꾼거는 달라진게 눈에 확연히 보이지 않은게 보일만큼 별반차이가 없는 걸 알 수 있음                                                                        
+
+
+# MySQL의 데이터타입중에 문자열 타입인 CHAR 예제
+# 고정길이 문자열 / 길이로 지정할 수 있는 값의 범위 0 ~ 255임
+ALTER TABLE Reservation ADD note CHAR(4);
+
+# DESCRIBE 테이블명; : 테이블의 정보를 볼 수 있음 
+DESCRIBE Reservation;
+ 
+SELECT note FROM Reservation WHERE name = '노트';
+INSERT INTO Reservation(name, reservationDate, note) VALUES('노트', now(), ''); 																

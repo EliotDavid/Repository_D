@@ -64,3 +64,37 @@ UPDATE User SET password = 'qwer1234!!' WHERE name = '고길동'; # User 테이�
 # User 테이블에서 id가 1인 레코드를 삭제
 DELETE FROM User WHERE id = 1; # User 테이블에서 삭제하겠다 / 어디서 뭐를 찾아서 ? id가 1인 애를 찾아서   
 
+INSERT INTO Board(boardTitle, boardContents, boardDate, boardWriter)
+VALUES('안녕히가세요' , '안녕하세요. 반갑습니다. 안녕히가세요', '2023-01-11', 3);
+
+# 전체 게시물 보기
+SELECT * FROM Board;
+
+# 작성일 순으로 보기
+SELECT * FROM Board ORDER BY boardDate DESC; # 작성날짜가 제일 큰 순이 먼저 와야되니까 내림차순으로 해줘야됨)
+# 오래된 글 순으로 보기 
+SELECT * FROM Board ORDER BY boardDate ASC; # 기본으로 해도 되지만 왠만하면 다 써줘라고 함
+
+# 10일 이내에 작성된 글 보기 
+SELECT * FROM Board WHERE boardDate >= '2023-01-08';
+
+# 10일 이내에 작성된 글을 최신순으로 보기 
+SELECT * FROM Board WHERE boardDate >= '2023-01-08' ORDER BY boardDate DESC;
+
+SELECT * FROM Board;
+
+# 작성자가 1이면서 10일 이내에 작성된 글을 최신순으로 보기 
+SELECT * FROM Board WHERE boardWriter = 1 AND boardDate >= '2023-01-08' ORDER BY boardDate DESC; # 실행하면 아무것도 안나오는게 정상임 
+
+
+# 게시물 제목에 '안녕하세요'가 포함된 게시글 보기 
+SELECT * FROM Board WHERE boardTitle LIKE '%안녕하세요%';
+
+# 게시물 내용에 '반갑습니다'가 포함된 게시글 보기 
+SELECT * FROM Board WHERE boardContents LIKE '%반갑습니다%';
+
+# 게시물 제목 + 내용에 '안녕히가세요'가 포함된 게시글 보기 ( 여기서 + 는 또는 이라는 의미라고 함/제목이나 내용에 안녕히가세요라는 말이 포함된 것들을 모두 출력해라는 의미임) 
+SELECT * FROM Board WHERE boardTitle Like '%안녕히가세요' OR boardContents LIKE '%안녕히가세요%';
+
+
+
