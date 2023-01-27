@@ -7,16 +7,30 @@ import DTO.DeleteBoardDTO;
 import DTO.InsertBoardDTO;
 import DTO.UpdateBoardDTO;
 import Database.DAO.BoardDAO;
+import Database.DAO.UserDAO;
 import Database.Entity.BoardEntity;
+import Database.Entity.UserEntity;
 
+
+// 실제 비즈니스 로직을 수행하는 Layer
 public class BoardService {
 	
 	private BoardDAO boardDao;
+	private UserDAO userDao;
 	
-	public BoardService() {
+	
+	
+	
+	public BoardService() { // 이 생성자가 실행이되면 UserDao생성자도 실행이 되도록 해야됨
 		this.boardDao = new BoardDAO();
+		this.userDao = new UserDAO();
 	}
 	public int postBoard(InsertBoardDTO insertBoardDto) {
+		
+		UserEntity userEntity = userDao.findById(insertBoardDto.getBoardWriter());
+		if(userEntity == null) return 0; // 존재하지않는다면 0을 반환해라
+		
+		
 		return boardDao.insert(insertBoardDto);
 	}
 	
