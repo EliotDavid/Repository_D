@@ -1,0 +1,38 @@
+<!DOCTYPE html> <!--// 여기가html5임-->
+<html lang="ko"> <!--// html lang="ko"부터 body태그 끝나는 부분까지 : 실제 html 코드가 나오는 구역임-->
+<head><!--Head태그 : HTML 페이지정보-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+</head>
+<body> <!--body태그 : 실제화면에 뿌려주는 요소가 나옴-->
+    <h1 style="color:red;">Hello World!</h1> <!-- 앞에 슬래쉬가 없는 태그를시작테그라고 하고슬래쉬가 있는 태그를 종료태그라고 함-->
+              <!--모든 태그는 필수로 종료태그로 닫아줘야함-->
+              <!--Hello World : 텍스트 Hello World라고 부르고 이 텍스트를이태그의 요소라고 부름-->  
+
+
+
+    <h2>Hello World!
+    <h3>Hello World!
+    <h4>Hello World!
+    <h5>Hello World!
+    <h6>Hello World!</h6>
+    <p>안녕하세요 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다 안녕히가세요. 즐거웠습니다</p>
+    <p>안녕히가세요. 즐거웠습니다</p>
+
+    <a href="https://naver.com">NAVER</a> <!--a태그안에 옵션을 하나 달아줌/옵션명:href(하이퍼링크 레퍼런스의 줄임말임)-->
+    <br/>
+    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMDRfOTcg%2FMDAxNjcyODEyMzM1MDg5.h0wkxmTQkGoqdZmSxRrNrIDoxGRLi_odOmn68bd6_RIg.MJUu07GD1xICVAFhgyzUhAcYNV98PGglCQ1VSgoa_vIg.JPEG.010cash%2FFB%25A3%25DFIMG%25A3%25DF1668744131572.jpg&type=sc960_832"/>
+    <!--절대경로-->    
+    
+    
+    <!--<img src="earth.jpg"/>--> <!--상대경로 표현-->
+                            <!--./asswet/image/sun.jpg : 맨 앞에 . 을 찍으면 현재 위치에서 앞으로 한칸만가서 html이라는거에서 asset을찾아서 sun.jpg라는 파일을 찾아감-->
+
+    <img alt="지구 이미지" src="../../asset/image/earth.jpg" > <!--상대경로 표현-->
+    <!--지구이미지파일을 html폴더 안에 asset일나느 폴더를 만든 다음에 aset이라는 폴더안에 image라는 폴더를 또 만들어서 거기 안에다가 기존 지구이미지를 옮겼을 때 상대경로로 찾는 방법-->       
+    <!--<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMjhfMzkg%2FMDAxNjcyMjA3ODA1Mjg3.roo-LbJBMXglmPw81mYNkDmmMjlo2i8A5hDOKMiareUg.6WXhE7nHYxtZ86YoAzrIqhbc1aTbiQPo1y_tYlMeioUg.JPEG.ansgus2974%2F%25B4%25D9%25BF%25EE%25B7%25CE%25B5%25E5_%252810%2529.jpg&type=sc960_832" alt="태양이미지">-->
+    <img src="../../../sun.jpg" alt="태양이미지">                        
+</body>
+</html>
